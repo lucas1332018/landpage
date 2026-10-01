@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Barbosa — Currículo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1b2a41;
+            --navy-dark: #12203a;
+            --accent: #2e6f95;
+            --accent-light: #e8f1f6;
+            --text: #2d333a;
+            --text-muted: #5f6b76;
+            --bg: #f4f6f8;
+            --card: #ffffff;
+            --border: #e2e8ee;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--card);
+            box-shadow: 0 2px 24px rgba(27, 42, 65, 0.10);
+        }
+
+        /* ===== Cabeçalho ===== */
+        header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            color: #fff;
+            padding: 48px 48px 40px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .profile-photo {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            flex-shrink: 0;
+        }
+
+        .profile-initials {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            background: var(--accent);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Lora', Georgia, serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .header-info h1 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .header-info .role {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #b8cde0;
+            margin-top: 4px;
+        }
+
+        .contact {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+            font-size: 0.92rem;
+            color: #d7e2ec;
+        }
+
+        .contact a {
+            color: #d7e2ec;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(215, 226, 236, 0.4);
+        }
+
+        .contact a:hover {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        /* ===== Conteúdo ===== */
+        main {
+            padding: 40px 48px 48px;
+        }
+
+        section + section {
+            margin-top: 36px;
+        }
+
+        h2 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.3rem;
+            color: var(--navy);
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .summary p {
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        /* ===== Experiência ===== */
+        .job {
+            padding-left: 20px;
+            border-left: 3px solid var(--accent-light);
+        }
+
+        .job + .job {
+            margin-top: 28px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+        }
+
+        .job-title {
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .job-company {
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        .job p {
+            margin-top: 8px;
+            color: var(--text);
+        }
+
+        .job ul {
+            margin: 10px 0 0 20px;
+            color: var(--text);
+        }
+
+        .job li {
+            margin-bottom: 6px;
+        }
+
+        .job .note {
+            margin-top: 12px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            background: var(--accent-light);
+            padding: 10px 14px;
+            border-radius: 6px;
+        }
+
+        .job a {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ===== Habilidades ===== */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background: var(--accent-light);
+            color: var(--navy);
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+        }
+
+        /* ===== Formação ===== */
+        .edu {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            padding: 14px 0;
+        }
+
+        .edu + .edu {
+            border-top: 1px solid var(--border);
+        }
+
+        .edu-course {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .edu-school {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .edu-status {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            background: var(--accent-light);
+            padding: 3px 12px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 32px 24px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact {
+                justify-content: center;
+            }
+
+            main {
+                padding: 28px 24px 36px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .page {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <img class="profile-photo" src="imagem/logo.jpg" alt="Foto de Lucas Barbosa"
+                 onerror="this.style.display='none'; document.getElementById('initials').style.display='flex';">
+            <div class="profile-initials" id="initials">LB</div>
+            <div class="header-info">
+                <h1>Lucas Barbosa</h1>
+                <p class="role">Desenvolvedor Back-end &nbsp;·&nbsp; Técnico em Eletrônica</p>
+                <div class="contact">
+                    <span>📧 <a href="mailto:lucas.barbosa@aluno.fmpsc.edu.br">lucas.barbosa@aluno.fmpsc.edu.br</a></span>
+                    <span>📱 (48) 95566-7788</span>
+                    <span>📍 Palhoça, SC</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="summary">
+                <h2>Resumo Profissional</h2>
+                <p>
+                    Estudante de Análise e Desenvolvimento de Sistemas com experiência prática em
+                    infraestrutura de servidores e desenvolvimento back-end. Fundador da Barbosa Tech,
+                    projeto no qual arquitetei e mantenho um servidor de jogo privado com integrações
+                    entre múltiplos protocolos de rede (TCP, UDP, HTTPS), APIs e bancos de dados
+                    (MongoDB, Redis). Experiência anterior como Técnico em Eletrônica, com vivência em
+                    manutenção e instalação de equipamentos de campo. Perfil autodidata, com domínio de
+                    ferramentas de desenvolvimento assistido por IA para acelerar entregas.
+                </p>
+            </section>
+
+            <section>
+                <h2>Experiência Profissional</h2>
+
+                <div class="job">
+                    <div class="job-header">
+                        <span class="job-title">Fundador e Desenvolvedor <span class="job-company">· Barbosa Tech</span></span>
+                        <span class="edu-school">Projeto próprio</span>
+                    </div>
+                    <p>
+                        Criador e mantenedor de um dos maiores servidores privados de Free Fire do Brasil,
+                        responsável por toda a arquitetura, infraestrutura e operação do projeto, atendendo
+                        uma comunidade ativa de jogadores.
+                    </p>
+                    <ul>
+                        <li>
+                            Arquitetura de um ecossistema distribuído integrando múltiplos protocolos:
+                            servidores <strong>TCP</strong> e <strong>UDP</strong> para comunicação em tempo
+                            real do jogo, e <strong>HTTPS/APIs REST</strong> para autenticação, contas e
+                            serviços auxiliares.
+                        </li>
+                        <li>
+                            Modelagem e administração de persistência de dados com <strong>MongoDB</strong>
+                            (contas, inventários e progressão dos jogadores) e <strong>Redis</strong> para
+                            cache e dados de sessão de baixa latência.
+                        </li>
+                        <li>
+                            Engenharia reversa e análise de tráfego de rede para implementar a comunicação
+                            cliente-servidor de forma compatível com o protocolo original do jogo.
+                        </li>
+                        <li>
+                            Operação do servidor em produção: deploy, monitoramento, correção de falhas e
+                            atendimento à comunidade via Discord.
+                        </li>
+                        <li>
+                            Uso intensivo de <strong>ferramentas de IA</strong> como apoio ao
+                            desenvolvimento, acelerando a implementação e o aprendizado das tecnologias
+                            envolvidas.
+                        </li>
+                    </ul>
+                    <p class="note">
+                        🔗 Comunidade do projeto:
+                        <a href="https://discord.gg/barbosaproject" target="_blank" rel="noopener">discord.gg/barbosaproject</a>
+                    </p>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <span class="job-title">Técnico em Eletrônica <span class="job-company">· Perkons S.A.</span></span>
+                    </div>
+                    <p>
+                        Manutenção preventiva e corretiva e instalação de radares eletrônicos de
+                        fiscalização de trânsito, com atuação em campo envolvendo diagnóstico de falhas,
+                        calibração e comissionamento de equipamentos.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Habilidades Técnicas</h2>
+                <div class="skills">
+                    <span class="skill">TCP / UDP</span>
+                    <span class="skill">HTTPS / APIs REST</span>
+                    <span class="skill">MongoDB</span>
+                    <span class="skill">Redis</span>
+                    <span class="skill">Arquitetura cliente-servidor</span>
+                    <span class="skill">Infraestrutura de servidores</span>
+                    <span class="skill">Desenvolvimento assistido por IA</span>
+                    <span class="skill">Eletrônica</span>
+                    <span class="skill">HTML / CSS</span>
+                </div>
+            </section>
+
+            <section>
+                <h2>Formação Acadêmica</h2>
+                <div class="edu">
+                    <div>
+                        <div class="edu-course">Análise e Desenvolvimento de Sistemas</div>
+                        <div class="edu-school">FMP — Faculdade Municipal de Palhoça · Conclusão prevista: 2029</div>
+                    </div>
+                    <span class="edu-status">Em andamento</span>
+                </div>
+                <div class="edu">
+                    <div>
+                        <div class="edu-course">Ensino Médio</div>
+                        <div class="edu-school">EEB Governador Ivo Silveira · Concluído em 2023</div>
+                    </div>
+                    <span class="edu-status">Concluído</span>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            Lucas Barbosa · Atualizado em outubro de 2025
+        </footer>
+    </div>
+</body>
+</html>

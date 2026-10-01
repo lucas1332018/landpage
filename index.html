@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbosa Tech</title>
+    <meta name="description" content="Barbosa Tech — controle de acesso, anticheat e banco de dados. Proteção para jogos mobile (Android e iOS): anticheat e antitamper, além de controle de acesso e banco de dados.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0e14;
+            --surface: #0f131c;
+            --border: #1d2433;
+            --heading: #f2f4f8;      /* títulos: sempre branco */
+            --text: #9aa3b5;         /* corpo: sempre este cinza */
+            --accent: #2e5be6;       /* azul da marca: botões, links e detalhes */
+            --accent-soft: #4f7df0;
+            --logo-blue: #1e8fd5;    /* azul do B da logo, só na logo */
+            --mono: 'SFMono-Regular', 'Consolas', 'Menlo', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            color: var(--heading);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* ===== Navegação ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(11, 14, 20, 0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 18px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.02rem;
+            letter-spacing: 0.04em;
+            color: var(--heading);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: color 0.15s;
+        }
+
+        .nav-links a:hover {
+            color: var(--heading);
+        }
+
+        .nav-links a.cta {
+            color: var(--heading);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 6px;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .nav-links a.cta:hover {
+            border-color: var(--accent);
+            background: rgba(46, 91, 230, 0.1);
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 110px 32px 90px;
+        }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-soft);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            max-width: 760px;
+            font-weight: 700;
+        }
+
+        .hero .sub {
+            margin-top: 24px;
+            max-width: 600px;
+            font-size: 1.08rem;
+        }
+
+        .hero-actions {
+            margin-top: 40px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 13px 26px;
+            border-radius: 6px;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-soft);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--border);
+            color: var(--heading);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+        }
+
+        /* Linha de fatos sob o hero */
+        .fatos {
+            margin-top: 72px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .fato .valor {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--heading);
+        }
+
+        .fato .rotulo {
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        /* ===== Seções ===== */
+        section {
+            padding: 96px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .secao-head {
+            margin-bottom: 56px;
+            max-width: 620px;
+        }
+
+        .secao-head h2 {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            font-weight: 700;
+        }
+
+        .secao-head p {
+            margin-top: 14px;
+            font-size: 1.02rem;
+        }
+
+        /* ===== Serviços ===== */
+        .servicos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px 56px;
+        }
+
+        .servico {
+            border-top: 2px solid var(--border);
+            padding-top: 28px;
+        }
+
+        .servico .num {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--accent-soft);
+            letter-spacing: 0.08em;
+        }
+
+        .servico h3 {
+            margin-top: 14px;
+            font-size: 1.18rem;
+        }
+
+        .servico p {
+            margin-top: 12px;
+            font-size: 0.96rem;
+        }
+
+        /* ===== Anticheat ===== */
+        .anticheat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 72px;
+            align-items: start;
+        }
+
+        .anticheat-texto h2 {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            font-weight: 700;
+        }
+
+        .anticheat-texto > p {
+            margin-top: 16px;
+            font-size: 1.02rem;
+        }
+
+        .lista {
+            margin-top: 32px;
+            list-style: none;
+        }
+
+        .lista li {
+            padding: 14px 0;
+            border-top: 1px solid var(--border);
+            font-size: 0.96rem;
+            display: flex;
+            gap: 14px;
+        }
+
+        .lista li::before {
+            content: "";
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 1px;
+            background: var(--accent);
+            margin-top: 10px;
+        }
+
+        /* Painel de monitoramento */
+        .painel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            font-family: var(--mono);
+            font-size: 0.84rem;
+        }
+
+        .painel-head {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .painel-head .status {
+            color: #4caf7d;
+        }
+
+        .painel-corpo {
+            padding: 8px 20px 14px;
+        }
+
+        .painel .linha {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(29, 36, 51, 0.6);
+        }
+
+        .painel .linha:last-child {
+            border-bottom: none;
+        }
+
+        .painel .linha span:last-child {
+            color: var(--heading);
+        }
+
+        .painel .neg { color: #d06060; }
+        .painel .atencao { color: #c9a84c; }
+        .painel .pos { color: #4caf7d; }
+
+        .painel .linha span.neg,
+        .painel .linha span.atencao,
+        .painel .linha span.pos {
+            color: inherit;
+        }
+
+        /* ===== Sobre ===== */
+        .sobre-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 72px;
+            align-items: start;
+        }
+
+        .sobre-grid h2 {
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            font-weight: 700;
+        }
+
+        .sobre-grid .coluna p + p {
+            margin-top: 18px;
+        }
+
+        /* ===== Contato ===== */
+        .contato {
+            border-bottom: none;
+        }
+
+        .contato-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 56px;
+            background: var(--surface);
+        }
+
+        .contato-inner h2 {
+            font-size: clamp(1.5rem, 3vw, 1.9rem);
+            font-weight: 700;
+        }
+
+        .contato-inner p {
+            margin-top: 12px;
+            max-width: 480px;
+        }
+
+        /* ===== Rodapé ===== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 32px;
+        }
+
+        .footer-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.88rem;
+        }
+
+        .footer-inner a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .footer-inner a:hover {
+            color: var(--heading);
+        }
+
+        /* ===== Responsivo ===== */
+        @media (max-width: 860px) {
+            .hero-inner {
+                padding: 72px 32px 64px;
+            }
+
+            .fatos,
+            .servicos {
+                grid-template-columns: 1fr;
+            }
+
+            .anticheat-grid,
+            .sobre-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .contato-inner {
+                grid-template-columns: 1fr;
+                padding: 40px 32px;
+            }
+
+            .nav-links a:not(.cta) {
+                display: none;
+            }
+
+            section {
+                padding: 72px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="#inicio" aria-label="Barbosa Tech — início">
+                <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
+                    <defs>
+                        <pattern id="hachura" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)">
+                            <rect width="7" height="7" fill="#1e8fd5"/>
+                            <line x1="0" y1="0" x2="0" y2="7" stroke="#ffffff" stroke-width="1.6" opacity="0.5"/>
+                        </pattern>
+                    </defs>
+                    <circle cx="50" cy="50" r="48" fill="#ffffff"/>
+                    <text x="50" y="76" text-anchor="middle"
+                          font-family="Space Grotesk, Arial, sans-serif" font-weight="700" font-size="76"
+                          fill="url(#hachura)" stroke="#1e8fd5" stroke-width="2">B</text>
+                </svg>
+                <span>BARBOSA TECH</span>
+            </a>
+            <div class="nav-links">
+                <a href="#servicos">Serviços</a>
+                <a href="#protect">Barbosa Protect</a>
+                <a href="#sobre">Sobre</a>
+                <a class="cta" href="#contato">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="inicio">
+        <div class="hero-inner">
+            <p class="eyebrow">Anticheat · Antitamper · Controle de acesso · Banco de dados</p>
+            <h1>Proteção para jogos mobile, do cliente ao servidor</h1>
+            <p class="sub">
+                A Barbosa Tech protege jogos para Android e iOS com o Barbosa Protect,
+                nosso kit de anticheat e antitamper, além de soluções de controle de
+                acesso e banco de dados. Trabalhamos com empresas de jogos que precisam
+                manter suas comunidades íntegras e seus dados protegidos.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#contato">Solicitar proposta</a>
+                <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
+            </div>
+
+            <div class="fatos">
+                <div class="fato">
+                    <div class="valor">24/7</div>
+                    <div class="rotulo">Operação e monitoramento contínuos</div>
+                </div>
+                <div class="fato">
+                    <div class="valor">12 mil+</div>
+                    <div class="rotulo">Jogadores em comunidades atendidas</div>
+                </div>
+                <div class="fato">
+                    <div class="valor">Android · iOS</div>
+                    <div class="rotulo">Plataformas mobile protegidas</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="servicos">
+        <div class="container">
+            <div class="secao-head">
+                <h2>Serviços</h2>
+                <p>
+                    Quatro áreas de atuação que se complementam: o cliente do jogo, o
+                    comportamento dos jogadores, quem acessa o sistema e onde os dados
+                    ficam guardados.
+                </p>
+            </div>
+            <div class="servicos">
+                <div class="servico">
+                    <div class="num">01</div>
+                    <h3>Anticheat</h3>
+                    <p>
+                        Detecção e bloqueio de trapaças em jogos online, com validação no
+                        servidor, análise de comportamento e banimento automatizado com
+                        revisão manual.
+                    </p>
+                </div>
+                <div class="servico">
+                    <div class="num">02</div>
+                    <h3>Antitamper</h3>
+                    <p>
+                        Proteção do cliente do jogo em Android e iOS contra modificações.
+                        Um cliente adulterado é detectado na inicialização e simplesmente
+                        não abre.
+                    </p>
+                </div>
+                <div class="servico">
+                    <div class="num">03</div>
+                    <h3>Controle de acesso</h3>
+                    <p>
+                        Autenticação, autorização e gestão de identidades para sistemas e
+                        aplicações. Definimos quem entra, o que pode fazer e registramos
+                        tudo em trilhas de auditoria.
+                    </p>
+                </div>
+                <div class="servico">
+                    <div class="num">04</div>
+                    <h3>Banco de dados</h3>
+                    <p>
+                        Modelagem, administração e otimização de MongoDB, Redis e bancos
+                        SQL. Persistência confiável, cache de baixa latência e rotinas de
+                        backup testadas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="protect">
+        <div class="container">
+            <div class="anticheat-grid">
+                <div class="anticheat-texto">
+                    <h2>Barbosa Protect: anticheat e antitamper para jogos mobile</h2>
+                    <p>
+                        Trapaça esvazia servidores. O Barbosa Protect combina duas camadas:
+                        o antitamper blinda o cliente do jogo em Android e iOS — um cliente
+                        modificado nem chega a abrir — e o anticheat atua do lado do
+                        servidor, onde o cheater não tem controle, analisando tráfego e
+                        comportamento dos jogadores em tempo real.
+                    </p>
+                    <ul class="lista">
+                        <li>Antitamper: cliente adulterado é bloqueado antes de iniciar</li>
+                        <li>Validação no servidor de movimentação, dano e economia do jogo</li>
+                        <li>Detecção de aimbot, speedhack e injeção por análise de padrões</li>
+                        <li>Reports e flags de detecção enviados aos nossos servidores por
+                            canal totalmente criptografado e protegido</li>
+                        <li>Banimento automatizado com painel de revisão manual</li>
+                        <li>Integração por API com o backend do jogo (TCP, UDP, REST)</li>
+                        <li>Relatórios e métricas para a equipe de operações</li>
+                    </ul>
+                </div>
+                <div class="painel" aria-label="Exemplo de painel de monitoramento">
+                    <div class="painel-head">
+                        <span>barbosa-protect v2.4</span>
+                        <span class="status">online</span>
+                    </div>
+                    <div class="painel-corpo">
+                        <div class="linha"><span>plataformas</span><span>Android · iOS</span></div>
+                        <div class="linha"><span>jogadores monitorados</span><span>12 482</span></div>
+                        <div class="linha"><span>antitamper</span><span class="pos">ativo</span></div>
+                        <div class="linha"><span>reports — canal criptografado</span><span class="pos">seguro</span></div>
+                        <div class="linha"><span>flags de detecção (24h)</span><span>37</span></div>
+                        <div class="linha"><span>cliente modificado #1193</span><span class="neg">bloqueado</span></div>
+                        <div class="linha"><span>player #8841 — speedhack</span><span class="neg">banido</span></div>
+                        <div class="linha"><span>player #2190 — padrão suspeito</span><span class="atencao">em análise</span></div>
+                        <div class="linha"><span>latência média</span><span>4 ms</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre">
+        <div class="container">
+            <div class="sobre-grid">
+                <h2>Por que a Barbosa Tech</h2>
+                <div class="coluna">
+                    <p>
+                        A Barbosa Tech nasceu dentro do mundo dos jogos online, operando a
+                        infraestrutura de um servidor com milhares de jogadores ativos:
+                        servidores TCP e UDP em tempo real, APIs de autenticação e bancos
+                        MongoDB e Redis em produção.
+                    </p>
+                    <p>
+                        Essa origem faz diferença no anticheat. Conhecemos os dois lados do
+                        campo — sabemos como o cheater pensa, por onde ele ataca e o que é
+                        preciso para pará-lo sem punir jogador honesto.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contato" id="contato">
+        <div class="container">
+            <div class="contato-inner">
+                <div>
+                    <h2>Vamos conversar sobre o seu projeto</h2>
+                    <p>
+                        Conte o que você precisa — o Barbosa Protect para o seu jogo,
+                        controle de acesso ou consultoria em banco de dados — e montamos
+                        uma proposta.
+                    </p>
+                </div>
+                <a class="btn btn-primary" href="https://discord.gg/barbosaproject" target="_blank" rel="noopener">
+                    Falar no Discord
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <span>© 2025 Barbosa Tech — Palhoça, SC</span>
+            <span>
+                <a href="https://youtube.com/@barbosatech" target="_blank" rel="noopener">YouTube</a>
+                &nbsp;·&nbsp;
+                <a href="https://discord.gg/barbosaproject" target="_blank" rel="noopener">Discord</a>
+                &nbsp;·&nbsp;
+                <a href="curriculo.html">Currículo do fundador</a>
+            </span>
+        </div>
+    </footer>
+
+</body>
+</html>
