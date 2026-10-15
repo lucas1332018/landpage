@@ -1,665 +1,269 @@
 <!DOCTYPE html>
+<!-- ===========================================================================
+  INOVA TECH — LANDING PAGE (index.html)
+  ===========================================================================
+  Página única e estática (HTML + CSS puros, sem JavaScript).
+  Estilo: css/style.css — o cabeçalho desse arquivo documenta cores,
+  tipografia, camadas de fundo e breakpoints.
+  Imagens: img/oficina.jpg (fundo da página), img/podcast.jpg (seção Inova
+  Cast), img/circuito-bg.svg (ilustração alternativa).
+  Guias de edição: docs/manutencao.md, docs/guia-de-estilo.md,
+  docs/publicacao.md. Visão geral: README.md.
+
+  ESTRUTURA DA PÁGINA (na ordem)
+    <header>              Cabeçalho fixo: marca + menu de âncoras
+    <section .hero>       Apresentação, botões de ação e destaques
+    <section #servicos>   Lista dos 5 serviços
+    <section #inovacast>  O podcast da empresa e seus temas
+    <section #contato>    Endereço, WhatsApp e mapa
+    <footer>              Direitos e lema do cartão de visita
+
+  ATENÇÃO — número do WhatsApp: o último dígito é um PALPITE (a foto do
+  cartão corta o número). Ele aparece em 3 pontos: procure por "wa.me" e
+  "98494". Formato do link: https://wa.me/55 + DDD + número, só dígitos.
+=========================================================================== -->
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbosa Tech</title>
-    <meta name="description" content="Barbosa Tech — controle de acesso, anticheat e banco de dados. Proteção para jogos mobile (Android e iOS): anticheat e antitamper, além de controle de acesso e banco de dados.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0b0e14;
-            --surface: #0f131c;
-            --border: #1d2433;
-            --heading: #f2f4f8;      /* títulos: sempre branco */
-            --text: #9aa3b5;         /* corpo: sempre este cinza */
-            --accent: #1e8fd5;       /* azul do B da logo: botões, links e detalhes */
-            --accent-soft: #4aa8e0;
-            --logo-blue: #1e8fd5;    /* azul do B da logo */
-            --mono: 'SFMono-Regular', 'Consolas', 'Menlo', monospace;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 16px;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            color: var(--heading);
-            font-weight: 600;
-            line-height: 1.2;
-            letter-spacing: -0.01em;
-        }
-
-        a {
-            color: inherit;
-        }
-
-        .container {
-            max-width: 1080px;
-            margin: 0 auto;
-            padding: 0 32px;
-        }
-
-        /* ===== Navegação ===== */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(11, 14, 20, 0.92);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-inner {
-            max-width: 1080px;
-            margin: 0 auto;
-            padding: 18px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .brand span {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 1.02rem;
-            letter-spacing: 0.04em;
-            color: var(--heading);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-size: 0.92rem;
-            font-weight: 500;
-            color: var(--text);
-            transition: color 0.15s;
-        }
-
-        .nav-links a:hover {
-            color: var(--heading);
-        }
-
-        .nav-links a.cta {
-            color: var(--heading);
-            border: 1px solid var(--border);
-            padding: 8px 18px;
-            border-radius: 6px;
-            transition: border-color 0.15s, background 0.15s;
-        }
-
-        .nav-links a.cta:hover {
-            border-color: var(--accent);
-            background: rgba(30, 143, 213, 0.1);
-        }
-
-        /* ===== Hero ===== */
-        .hero {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero-inner {
-            max-width: 1080px;
-            margin: 0 auto;
-            padding: 110px 32px 90px;
-        }
-
-        .eyebrow {
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--accent-soft);
-            margin-bottom: 24px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.6rem);
-            max-width: 760px;
-            font-weight: 700;
-        }
-
-        .hero .sub {
-            margin-top: 24px;
-            max-width: 600px;
-            font-size: 1.08rem;
-        }
-
-        .hero-actions {
-            margin-top: 40px;
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 13px 26px;
-            border-radius: 6px;
-            transition: background 0.15s, border-color 0.15s;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #ffffff;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-soft);
-        }
-
-        .btn-ghost {
-            border: 1px solid var(--border);
-            color: var(--heading);
-        }
-
-        .btn-ghost:hover {
-            border-color: var(--accent);
-        }
-
-        /* Linha de fatos sob o hero */
-        .fatos {
-            margin-top: 72px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .fato .valor {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--heading);
-        }
-
-        .fato .rotulo {
-            font-size: 0.9rem;
-            margin-top: 2px;
-        }
-
-        /* ===== Seções ===== */
-        section {
-            padding: 96px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .secao-head {
-            margin-bottom: 56px;
-            max-width: 620px;
-        }
-
-        .secao-head h2 {
-            font-size: clamp(1.6rem, 3vw, 2.1rem);
-            font-weight: 700;
-        }
-
-        .secao-head p {
-            margin-top: 14px;
-            font-size: 1.02rem;
-        }
-
-        /* ===== Serviços ===== */
-        .servicos {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px 56px;
-        }
-
-        .servico {
-            border-top: 2px solid var(--border);
-            padding-top: 28px;
-        }
-
-        .servico .num {
-            font-family: var(--mono);
-            font-size: 0.82rem;
-            color: var(--accent-soft);
-            letter-spacing: 0.08em;
-        }
-
-        .servico h3 {
-            margin-top: 14px;
-            font-size: 1.18rem;
-        }
-
-        .servico p {
-            margin-top: 12px;
-            font-size: 0.96rem;
-        }
-
-        /* ===== Anticheat ===== */
-        .anticheat-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 72px;
-            align-items: start;
-        }
-
-        .anticheat-texto h2 {
-            font-size: clamp(1.6rem, 3vw, 2.1rem);
-            font-weight: 700;
-        }
-
-        .anticheat-texto > p {
-            margin-top: 16px;
-            font-size: 1.02rem;
-        }
-
-        .lista {
-            margin-top: 32px;
-            list-style: none;
-        }
-
-        .lista li {
-            padding: 14px 0;
-            border-top: 1px solid var(--border);
-            font-size: 0.96rem;
-            display: flex;
-            gap: 14px;
-        }
-
-        .lista li::before {
-            content: "";
-            flex-shrink: 0;
-            width: 6px;
-            height: 6px;
-            border-radius: 1px;
-            background: var(--accent);
-            margin-top: 10px;
-        }
-
-        /* Painel de monitoramento */
-        .painel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            font-family: var(--mono);
-            font-size: 0.84rem;
-        }
-
-        .painel-head {
-            padding: 12px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text);
-        }
-
-        .painel-head .status {
-            color: #4caf7d;
-        }
-
-        .painel-corpo {
-            padding: 8px 20px 14px;
-        }
-
-        .painel .linha {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(29, 36, 51, 0.6);
-        }
-
-        .painel .linha:last-child {
-            border-bottom: none;
-        }
-
-        .painel .linha span:last-child {
-            color: var(--heading);
-        }
-
-        .painel .neg { color: #d06060; }
-        .painel .atencao { color: #c9a84c; }
-        .painel .pos { color: #4caf7d; }
-
-        .painel .linha span.neg,
-        .painel .linha span.atencao,
-        .painel .linha span.pos {
-            color: inherit;
-        }
-
-        /* ===== Sobre ===== */
-        .sobre-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 72px;
-            align-items: start;
-        }
-
-        .sobre-grid h2 {
-            font-size: clamp(1.6rem, 3vw, 2.1rem);
-            font-weight: 700;
-        }
-
-        .sobre-grid .coluna p + p {
-            margin-top: 18px;
-        }
-
-        /* ===== Contato ===== */
-        .contato {
-            border-bottom: none;
-        }
-
-        .contato-inner {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 40px;
-            align-items: center;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 56px;
-            background: var(--surface);
-        }
-
-        .contato-inner h2 {
-            font-size: clamp(1.5rem, 3vw, 1.9rem);
-            font-weight: 700;
-        }
-
-        .contato-inner p {
-            margin-top: 12px;
-            max-width: 480px;
-        }
-
-        /* ===== Rodapé ===== */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 32px;
-        }
-
-        .footer-inner {
-            max-width: 1080px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 0.88rem;
-        }
-
-        .footer-inner a {
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .footer-inner a:hover {
-            color: var(--heading);
-        }
-
-        /* ===== Responsivo ===== */
-        @media (max-width: 860px) {
-            .hero-inner {
-                padding: 72px 32px 64px;
-            }
-
-            .fatos,
-            .servicos {
-                grid-template-columns: 1fr;
-            }
-
-            .anticheat-grid,
-            .sobre-grid {
-                grid-template-columns: 1fr;
-                gap: 48px;
-            }
-
-            .contato-inner {
-                grid-template-columns: 1fr;
-                padding: 40px 32px;
-            }
-
-            .nav-links a:not(.cta) {
-                display: none;
-            }
-
-            section {
-                padding: 72px 0;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Título e descrição: o que o Google mostra na busca local.
+     Se o foco do negócio mudar, atualizar os dois juntos. -->
+<title>Inova Tech — Tecnologia e Eletrônica em Palhoça</title>
+<meta name="description" content="Inova Tech: venda, reparo e manutenção de computadores, notebooks e aparelhos vintage em Palhoça, SC. Especializada em eletrônica avançada. Há mais de 4 anos no ramo.">
+
+<!-- Fontes (Google Fonts):
+     Space Grotesk 500–700 = títulos e marca (máx. 700, não usar 800)
+     Archivo 400–700       = corpo de texto
+     IBM Plex Mono 400–600 = detalhes técnicos (classe .mono) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- Toda a aparência vive aqui; este HTML é só estrutura e conteúdo -->
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <nav>
-        <div class="nav-inner">
-            <a class="brand" href="#inicio" aria-label="Barbosa Tech — início">
-                <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true">
-                    <defs>
-                        <pattern id="hachura" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)">
-                            <rect width="7" height="7" fill="#1e8fd5"/>
-                            <line x1="0" y1="0" x2="0" y2="7" stroke="#ffffff" stroke-width="1.6" opacity="0.5"/>
-                        </pattern>
-                    </defs>
-                    <circle cx="50" cy="50" r="48" fill="#ffffff"/>
-                    <text x="50" y="51" text-anchor="middle" dominant-baseline="central"
-                          font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="70"
-                          fill="url(#hachura)" stroke="#1e8fd5" stroke-width="2">B</text>
-                </svg>
-                <span>BARBOSA TECH</span>
-            </a>
-            <div class="nav-links">
-                <a href="#servicos">Serviços</a>
-                <a href="#protect">Barbosa Protect</a>
-                <a href="#sobre">Sobre</a>
-                <a class="cta" href="#contato">Contato</a>
-            </div>
-        </div>
+<!-- =========================================================================
+  CABEÇALHO — fixo no topo (position: sticky no CSS), fundo preto translúcido.
+  A marca combina o ícone de chip (SVG desenhado à mão, dourado #F2B705)
+  com o nome. O menu navega por âncoras para as seções da própria página;
+  em telas ≤ 720 px o menu é ocultado pelo CSS.
+========================================================================== -->
+<header>
+  <div class="header-inner">
+    <div class="marca">
+      <!-- Ícone: processador estilizado — quadrado com pinos, eco do tema
+           "eletrônica avançada". aria-hidden: decorativo, o nome ao lado
+           é quem identifica a marca para leitores de tela. -->
+      <svg class="marca-icone" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+        <rect x="7" y="7" width="20" height="20" rx="3" stroke="#F2B705" stroke-width="2"/>
+        <rect x="13" y="13" width="8" height="8" fill="#F2B705"/>
+        <path d="M12 7V2M17 7V2M22 7V2M12 32v-5M17 32v-5M22 32v-5M7 12H2M7 17H2M7 22H2M32 12h-5M32 17h-5M32 22h-5" stroke="#F2B705" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Inova Tech
+    </div>
+    <nav aria-label="Navegação principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#inovacast">Inova Cast</a>
+      <a href="#contato">Contato</a>
     </nav>
+  </div>
+</header>
 
-    <header class="hero" id="inicio">
-        <div class="hero-inner">
-            <p class="eyebrow">Anticheat · Antitamper · Controle de acesso · Banco de dados</p>
-            <h1>Proteção para jogos mobile, do cliente ao servidor</h1>
-            <p class="sub">
-                A Barbosa Tech protege jogos para Android e iOS com o Barbosa Protect,
-                nosso kit de anticheat e antitamper, além de soluções de controle de
-                acesso e banco de dados. Trabalhamos com empresas de jogos que precisam
-                manter suas comunidades íntegras e seus dados protegidos.
-            </p>
-            <div class="hero-actions">
-                <a class="btn btn-primary" href="#contato">Solicitar proposta</a>
-                <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
-            </div>
+<main>
+  <!-- =======================================================================
+    HERO — primeira dobra. É a "janela" mais aberta para a foto de fundo da
+    página (img/oficina.jpg, aplicada no body::after do CSS); aqui o CSS
+    adiciona só um reforço escuro à esquerda, atrás do texto.
+    Conteúdo: localização (etiqueta mono), título com "vintage" em dourado,
+    resumo do negócio, os dois botões de ação e a trinca de destaques.
+  ======================================================================== -->
+  <section class="hero" aria-label="Apresentação">
+    <div class="wrap">
+      <p class="hero-tag">Palhoça, Santa Catarina — desde 2021</p>
+      <h1>Tecnologia que funciona, do <em>vintage</em> ao avançado.</h1>
+      <p class="hero-texto">A Inova Tech vende, repara e dá manutenção em computadores, notebooks e aparelhos vintage, com especialização em eletrônica avançada. Diagnóstico honesto, serviço preciso e atendimento direto com quem entende.</p>
 
-            <div class="fatos">
-                <div class="fato">
-                    <div class="valor">24/7</div>
-                    <div class="rotulo">Operação e monitoramento contínuos</div>
-                </div>
-                <div class="fato">
-                    <div class="valor">12 mil+</div>
-                    <div class="rotulo">Jogadores em comunidades atendidas</div>
-                </div>
-                <div class="fato">
-                    <div class="valor">Android · iOS</div>
-                    <div class="rotulo">Plataformas mobile protegidas</div>
-                </div>
-            </div>
+      <!-- Ações: botão verde WhatsApp (cor oficial #25D366, via .botao)
+           e botão secundário de contorno que rola até Serviços -->
+      <div class="hero-acoes">
+        <a class="botao" href="https://wa.me/5548984941001" target="_blank" rel="noopener">
+          <!-- Logo oficial do WhatsApp em SVG inline (herda a cor do texto) -->
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar no WhatsApp
+        </a>
+        <a class="botao-secundario" href="#servicos">Ver serviços</a>
+      </div>
+
+      <!-- Destaques com barra dourada à esquerda (estilo .hero-dados) -->
+      <div class="hero-dados">
+        <div>
+          <strong>+4 anos</strong>
+          <span>no ramo de tecnologia</span>
         </div>
-    </header>
-
-    <section id="servicos">
-        <div class="container">
-            <div class="secao-head">
-                <h2>Serviços</h2>
-                <p>
-                    Quatro áreas de atuação que se complementam: o cliente do jogo, o
-                    comportamento dos jogadores, quem acessa o sistema e onde os dados
-                    ficam guardados.
-                </p>
-            </div>
-            <div class="servicos">
-                <div class="servico">
-                    <div class="num">01</div>
-                    <h3>Anticheat</h3>
-                    <p>
-                        Detecção e bloqueio de trapaças em jogos online, com validação no
-                        servidor, análise de comportamento e banimento automatizado com
-                        revisão manual.
-                    </p>
-                </div>
-                <div class="servico">
-                    <div class="num">02</div>
-                    <h3>Antitamper</h3>
-                    <p>
-                        Proteção do cliente do jogo em Android e iOS contra modificações.
-                        Um cliente adulterado é detectado na inicialização e simplesmente
-                        não abre.
-                    </p>
-                </div>
-                <div class="servico">
-                    <div class="num">03</div>
-                    <h3>Controle de acesso</h3>
-                    <p>
-                        Autenticação, autorização e gestão de identidades para sistemas e
-                        aplicações. Definimos quem entra, o que pode fazer e registramos
-                        tudo em trilhas de auditoria.
-                    </p>
-                </div>
-                <div class="servico">
-                    <div class="num">04</div>
-                    <h3>Banco de dados</h3>
-                    <p>
-                        Modelagem, administração e otimização de MongoDB, Redis e bancos
-                        SQL. Persistência confiável, cache de baixa latência e rotinas de
-                        backup testadas.
-                    </p>
-                </div>
-            </div>
+        <div>
+          <strong>Venda e reparo</strong>
+          <span>computadores e notebooks</span>
         </div>
-    </section>
-
-    <section id="protect">
-        <div class="container">
-            <div class="anticheat-grid">
-                <div class="anticheat-texto">
-                    <h2>Barbosa Protect: anticheat e antitamper para jogos mobile</h2>
-                    <p>
-                        Trapaça esvazia servidores. O Barbosa Protect combina duas camadas:
-                        o antitamper blinda o cliente do jogo em Android e iOS — um cliente
-                        modificado nem chega a abrir — e o anticheat atua do lado do
-                        servidor, onde o cheater não tem controle, analisando tráfego e
-                        comportamento dos jogadores em tempo real.
-                    </p>
-                    <ul class="lista">
-                        <li>Antitamper: cliente adulterado é bloqueado antes de iniciar</li>
-                        <li>Validação no servidor de movimentação, dano e economia do jogo</li>
-                        <li>Detecção de aimbot, speedhack e injeção por análise de padrões</li>
-                        <li>Reports e flags de detecção enviados aos nossos servidores por
-                            canal totalmente criptografado e protegido</li>
-                        <li>Banimento automatizado com painel de revisão manual</li>
-                        <li>Integração por API com o backend do jogo (TCP, UDP, REST)</li>
-                        <li>Relatórios e métricas para a equipe de operações</li>
-                    </ul>
-                </div>
-                <div class="painel" aria-label="Exemplo de painel de monitoramento">
-                    <div class="painel-head">
-                        <span>barbosa-protect v2.4</span>
-                        <span class="status">online</span>
-                    </div>
-                    <div class="painel-corpo">
-                        <div class="linha"><span>plataformas</span><span>Android · iOS</span></div>
-                        <div class="linha"><span>jogadores monitorados</span><span>12 482</span></div>
-                        <div class="linha"><span>antitamper</span><span class="pos">ativo</span></div>
-                        <div class="linha"><span>reports — canal criptografado</span><span class="pos">seguro</span></div>
-                        <div class="linha"><span>flags de detecção (24h)</span><span>37</span></div>
-                        <div class="linha"><span>cliente modificado #1193</span><span class="neg">bloqueado</span></div>
-                        <div class="linha"><span>player #8841 — speedhack</span><span class="neg">banido</span></div>
-                        <div class="linha"><span>player #2190 — padrão suspeito</span><span class="atencao">em análise</span></div>
-                        <div class="linha"><span>latência média</span><span>4 ms</span></div>
-                    </div>
-                </div>
-            </div>
+        <div>
+          <strong>Eletrônica avançada</strong>
+          <span>especialização técnica</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="sobre">
-        <div class="container">
-            <div class="sobre-grid">
-                <h2>Por que a Barbosa Tech</h2>
-                <div class="coluna">
-                    <p>
-                        A Barbosa Tech nasceu dentro do mundo dos jogos online, operando a
-                        infraestrutura de um servidor com milhares de jogadores ativos:
-                        servidores TCP e UDP em tempo real, APIs de autenticação e bancos
-                        MongoDB e Redis em produção.
-                    </p>
-                    <p>
-                        Essa origem faz diferença no anticheat. Conhecemos os dois lados do
-                        campo — sabemos como o cheater pensa, por onde ele ataca e o que é
-                        preciso para pará-lo sem punir jogador honesto.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- =======================================================================
+    SERVIÇOS — lista em linhas (ícone | nome | descrição), separadas por
+    divisórias finas. Para adicionar/remover um serviço, duplique/apague um
+    bloco <div class="servico"> inteiro (ver docs/manutencao.md).
+    Ícones: SVGs de traço 24×24 com stroke="currentColor" — herdam o dourado
+    do contêiner .servico-icone automaticamente.
+  ======================================================================== -->
+  <section id="servicos" aria-label="Serviços">
+    <div class="wrap">
+      <p class="secao-titulo">Serviços</p>
+      <h2>O que fazemos, com precisão.</h2>
+      <div class="servicos-lista">
 
-    <section class="contato" id="contato">
-        <div class="container">
-            <div class="contato-inner">
-                <div>
-                    <h2>Vamos conversar sobre o seu projeto</h2>
-                    <p>
-                        Conte o que você precisa — o Barbosa Protect para o seu jogo,
-                        controle de acesso ou consultoria em banco de dados — e montamos
-                        uma proposta.
-                    </p>
-                </div>
-                <a class="btn btn-primary" href="https://discord.gg/barbosaproject" target="_blank" rel="noopener">
-                    Falar no Discord
-                </a>
-            </div>
+        <!-- Venda: ícone de monitor -->
+        <div class="servico">
+          <div class="servico-icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>Venda de equipamentos</h3>
+          <p>Computadores, notebooks e periféricos selecionados e testados. Orientação honesta para você comprar o que realmente precisa — nem mais, nem menos.</p>
         </div>
-    </section>
 
-    <footer>
-        <div class="footer-inner">
-            <span>© 2025 Barbosa Tech — Palhoça, SC</span>
-            <span>
-                <a href="https://youtube.com/@barbosatech" target="_blank" rel="noopener">YouTube</a>
-                &nbsp;·&nbsp;
-                <a href="https://discord.gg/barbosaproject" target="_blank" rel="noopener">Discord</a>
-            </span>
+        <!-- Reparo: ícone de chave/ferramenta -->
+        <div class="servico">
+          <div class="servico-icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4.5 4.5 0 00-6.07 5.9L3 17.84V21h3.16l5.64-5.63a4.5 4.5 0 005.9-6.07l-3.1 3.1-2.83-2.83 3.1-3.1z"/></svg>
+          </div>
+          <h3>Reparo e manutenção</h3>
+          <p>Diagnóstico completo de hardware e software, limpeza, troca de componentes e manutenção preventiva para computadores e notebooks de todas as marcas.</p>
         </div>
-    </footer>
+
+        <!-- Vintage: ícone de controle de videogame -->
+        <div class="servico">
+          <div class="servico-icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/><path d="M17.32 6H6.68a4 4 0 00-3.97 3.6L2 17a2.1 2.1 0 003.6 1.62L8.5 15.5h7l2.9 3.12A2.1 2.1 0 0022 17l-.71-7.4A4 4 0 0017.32 6z"/></svg>
+          </div>
+          <h3>Aparelhos vintage</h3>
+          <p>Restauração e comercialização de equipamentos antigos — consoles, computadores clássicos e eletrônicos de outras épocas, tratados com o cuidado técnico que merecem.</p>
+        </div>
+
+        <!-- Eletrônica avançada: ícone de chip (mesmo motivo da marca) -->
+        <div class="servico">
+          <div class="servico-icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="10" y="10" width="4" height="4"/><path d="M9 6V3M15 6V3M9 21v-3M15 21v-3M6 9H3M6 15H3M21 9h-3M21 15h-3"/></svg>
+          </div>
+          <h3>Eletrônica avançada</h3>
+          <p>Reparos em nível de placa: microsoldagem, diagnóstico de circuitos e recuperação de equipamentos que outras assistências não resolvem.</p>
+        </div>
+
+        <!-- Compra de usados: ícone de setas de troca -->
+        <div class="servico">
+          <div class="servico-icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0114.1-3.4M20 15a8 8 0 01-14.1 3.4"/><path d="M18 2v4h-4M6 22v-4h4"/></svg>
+          </div>
+          <h3>Compra de usados</h3>
+          <p>Avaliação justa do seu equipamento usado, com proposta transparente de compra ou troca.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+    INOVA CAST — o podcast da empresa. Esta seção tem fundo próprio
+    (img/podcast.jpg, microfone dourado — aplicado na regra .cast do CSS).
+    Esquerda: barras de equalizador (assinatura visual) + texto.
+    Direita: quadro de temas com cabeçalho dourado e selo "1 ano no ar".
+    Para editar os temas, basta mexer nos <li> (o marcador dourado é CSS).
+  ======================================================================== -->
+  <section id="inovacast" class="cast" aria-label="Inova Cast">
+    <div class="wrap">
+      <p class="secao-titulo">Inova Cast</p>
+      <div class="cast-grid">
+        <div>
+          <!-- Equalizador decorativo: 10 barras, alturas definidas no CSS -->
+          <div class="cast-ondas" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <h2>O podcast da Inova Tech sobre o que move a economia — e as pessoas.</h2>
+          <p>Há cerca de um ano no ar, o Inova Cast é o espaço onde a Inova Tech vai além da bancada: conversas francas sobre economia, empreendedorismo e desenvolvimento pessoal, com a mesma objetividade que aplicamos na técnica.</p>
+          <p>Sem roteiro engessado e sem medo de opinião: o objetivo é ajudar quem empreende, investe ou simplesmente quer entender melhor o cenário econômico do país.</p>
+        </div>
+        <div class="cast-temas">
+          <p class="cast-temas-cabecalho">Temas em pauta</p>
+          <ul>
+            <li>Economia e cenário nacional</li>
+            <li>Empreendedorismo na prática</li>
+            <li>Desenvolvimento pessoal e financeiro</li>
+            <li>Investimentos</li>
+            <li>Opinião e debate político</li>
+          </ul>
+          <p class="cast-rodape">1 ano no ar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+    LOCALIZAÇÃO E CONTATO — duas colunas: dados à esquerda, mapa à direita.
+    O mapa é um <iframe> gratuito do Google Maps (sem chave de API); o visual
+    escuro é um filtro CSS (.mapa iframe). Para trocar o endereço do mapa,
+    edite o parâmetro q= da URL mantendo &output=embed no final.
+  ======================================================================== -->
+  <section id="contato" aria-label="Localização e contato">
+    <div class="wrap">
+      <p class="secao-titulo">Onde estamos</p>
+      <div class="local-grid">
+        <div>
+          <h2>Visite a loja ou chame no WhatsApp.</h2>
+          <div class="local-bloco">
+            <h3>Endereço</h3>
+            <p>R. Antônio Viêira, 27 — Ponte do Imaruim<br>Palhoça, SC · <span class="mono">CEP 88130-470</span></p>
+          </div>
+          <div class="local-bloco">
+            <h3>Atendimento</h3>
+            <!-- CONFIRMAR o último dígito do número antes de publicar -->
+            <p>Flavio Mëlo<br><a class="mono" href="https://wa.me/5548984941001">+55 (48) 98494-1001</a></p>
+          </div>
+          <div class="local-bloco">
+            <a class="botao" href="https://wa.me/5548984941001" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Chamar no WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="mapa">
+          <iframe
+            title="Mapa — Inova Tech, R. Antônio Viêira 27, Ponte do Imaruim, Palhoça SC"
+            src="https://www.google.com/maps?q=R.+Ant%C3%B4nio+Vi%C3%AAira,+27+-+Pte.+do+Imaruim,+Palho%C3%A7a+-+SC,+88130-470&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- =========================================================================
+  RODAPÉ — direitos (atualizar o ano a cada virada) e, em fonte mono,
+  o lema impresso no cartão de visita da empresa.
+========================================================================== -->
+<footer>
+  <div class="wrap rodape-inner">
+    <small>© 2026 Inova Tech — Palhoça, SC. Todos os direitos reservados.</small>
+    <p class="mono">Apps I.A. · Informática · Compra, Manutenção e Venda</p>
+  </div>
+</footer>
 
 </body>
 </html>

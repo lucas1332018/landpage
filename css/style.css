@@ -1,0 +1,606 @@
+/* ============================================================================
+   INOVA TECH — FOLHA DE ESTILO ÚNICA (css/style.css)
+   ============================================================================
+
+   Identidade: fiel ao cartão de visita da empresa — preto puro + amarelo-ouro.
+   Sem frameworks e sem JavaScript: HTML + CSS puros.
+
+   ÍNDICE (buscar pelo banner de cada seção)
+     1. Variáveis (tokens de cor e layout)  → :root
+     2. Camadas de fundo da página          → body::after / body::before
+     3. Base e acessibilidade               → body, links, foco, reduced-motion
+     4. Cabeçalho fixo                      → header / .marca / nav
+     5. Hero                                → .hero / .hero-tag / .hero-dados
+     6. Botões                              → .botao / .botao-secundario
+     7. Seções (estrutura comum)            → section / .secao-titulo
+     8. Serviços                            → .servicos-lista / .servico
+     9. Inova Cast                          → .cast / .cast-ondas / .cast-temas
+    10. Localização e contato               → .local-grid / .mapa
+    11. Rodapé                              → footer
+
+   TABELA DE CORES (alterar SOMENTE aqui no :root — o site todo acompanha)
+   ┌───────────────────┬─────────┬──────────────────────────────────────────┐
+   │ Variável          │ Hex     │ Uso                                      │
+   ├───────────────────┼─────────┼──────────────────────────────────────────┤
+   │ --preto           │ #000000 │ Fundo principal (preto puro do cartão)   │
+   │ --preto-2         │ #0B0A08 │ Superfícies escuras alternativas         │
+   │ --preto-3         │ #14120D │ Superfícies elevadas (reserva)           │
+   │ --dourado         │ #F2B705 │ Cor da marca: títulos, detalhes, ícones  │
+   │ --dourado-escuro  │ #C9971A │ Bordas e detalhes discretos              │
+   │ --dourado-claro   │ #FFD147 │ Hover e brilhos                          │
+   │ --whatsapp        │ #25D366 │ SÓ nos botões de WhatsApp (cor oficial)  │
+   │ --whatsapp-claro  │ #4AE387 │ Hover dos botões de WhatsApp             │
+   │ --claro           │ #F4EFE2 │ Texto principal (off-white quente)       │
+   │ --cinza           │ #9C9480 │ Texto secundário                         │
+   │ --linha           │ #241F14 │ Divisórias e bordas sutis                │
+   └───────────────────┴─────────┴──────────────────────────────────────────┘
+   Regra da paleta: dourado é a única cor de destaque; a exceção é o verde
+   oficial do WhatsApp nos botões de contato.
+
+   TIPOGRAFIA (carregada do Google Fonts no <head> do index.html)
+   - Space Grotesk 500–700 → títulos (h1–h3), marca e números de destaque.
+     Peso máximo 700: NÃO usar font-weight 800 nesses elementos.
+   - Archivo 400–700       → corpo de texto, botões, menu (padrão do body).
+   - IBM Plex Mono 400–600 → detalhes técnicos (classe utilitária .mono),
+     ecoando a fonte monoespaçada do cartão de visita.
+
+   FUNDOS EM CAMADAS (como a foto aparece na página inteira)
+   1. body::after  → foto fixa img/oficina.jpg + véu preto 80% (página toda).
+   2. .hero        → só um reforço de gradiente à esquerda (texto);
+                     é a "janela" mais aberta para a foto.
+   3. section/footer → escurecimento extra rgba(0,0,0,0.62) para leitura.
+   4. .cast        → substitui tudo pela foto própria img/podcast.jpg
+                     (microfone dourado) com gradiente aberto à direita.
+
+   BREAKPOINTS
+   - ≤ 820 px → grades de 2 colunas viram 1; véus dos fundos ficam uniformes.
+   - ≤ 720 px → menu do topo some; serviços colapsam (ícone + conteúdo).
+
+   ACESSIBILIDADE (manter em qualquer alteração)
+   - Foco de teclado visível (contorno dourado) em links e botões.
+   - prefers-reduced-motion desliga transições e rolagem suave.
+   - SVGs decorativos com aria-hidden; contrastes AA sobre preto.
+   ========================================================================= */
+
+:root {
+  --preto: #000000;        /* fundo principal — preto puro do cartão */
+  --preto-2: #0B0A08;      /* fundo alternativo (seção Inova Cast) */
+  --preto-3: #14120D;      /* superfícies elevadas */
+  --dourado: #F2B705;      /* amarelo-ouro principal do cartão */
+  --dourado-escuro: #C9971A; /* ouro mais fechado, para detalhes */
+  --dourado-claro: #FFD147;  /* hover e brilhos */
+  --whatsapp: #25D366;     /* verde oficial do WhatsApp — só nos botões de contato */
+  --whatsapp-claro: #4AE387; /* hover dos botões de WhatsApp */
+  --claro: #F4EFE2;        /* texto principal */
+  --cinza: #9C9480;        /* texto secundário */
+  --linha: #241F14;        /* divisórias */
+  --max: 1100px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+body {
+  background: var(--preto);
+  color: var(--claro);
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* foto de bancada de manutenção fixa atrás da página inteira,
+   sob um véu escuro que garante a leitura em todas as seções */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80)),
+    url("../img/oficina.jpg") center / cover no-repeat;
+}
+
+/* filete dourado no topo da página, como a borda de um cartão */
+body::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--dourado-escuro), var(--dourado) 40%, var(--dourado-claro) 60%, var(--dourado-escuro));
+}
+
+.mono { font-family: 'IBM Plex Mono', monospace; }
+
+/* títulos e marca usam a Space Grotesk — desenho técnico e característico,
+   no espírito da eletrônica; o corpo do texto fica na Archivo */
+h1, h2, h3,
+.marca,
+.hero-dados strong {
+  font-family: 'Space Grotesk', 'Archivo', system-ui, sans-serif;
+}
+
+a { color: var(--dourado); text-decoration: none; }
+a:hover { color: var(--dourado-claro); }
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--dourado);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   Cabeçalho
+   ============================================================ */
+
+header {
+  border-bottom: 1px solid var(--linha);
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.01em;
+  color: var(--dourado);
+}
+
+.marca .marca-icone {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+nav { display: flex; gap: 28px; }
+
+nav a {
+  color: var(--claro);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover {
+  color: var(--dourado);
+  border-bottom-color: var(--dourado);
+}
+
+@media (max-width: 720px) {
+  nav { display: none; }
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding: 100px 0 84px;
+  border-bottom: 1px solid var(--linha);
+  overflow: hidden;
+  /* o hero é a "janela" mais aberta para a foto fixa da página:
+     só um reforço à esquerda, onde fica o texto */
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.42) 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+.hero .wrap { position: relative; }
+
+@media (max-width: 820px) {
+  /* em telas estreitas o texto ocupa a largura toda: véu uniforme */
+  .hero { background: rgba(0, 0, 0, 0.55); }
+}
+
+.hero-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--dourado);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hero-tag::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: var(--dourado);
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.9rem);
+  font-weight: 700;
+  line-height: 1.07;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+  margin-bottom: 28px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--dourado);
+}
+
+.hero p.hero-texto {
+  max-width: 58ch;
+  color: var(--cinza);
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+.hero-acoes {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ============================================================
+   Botões
+   ============================================================ */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--whatsapp);
+  color: var(--preto);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 26px;
+  border-radius: 4px;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.botao:hover {
+  background: var(--whatsapp-claro);
+  color: var(--preto);
+  box-shadow: 0 0 24px rgba(37, 211, 102, 0.3);
+}
+
+.botao svg { flex-shrink: 0; }
+
+.botao-secundario {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 26px;
+  border: 1px solid var(--dourado-escuro);
+  border-radius: 4px;
+  color: var(--claro);
+  font-weight: 500;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.botao-secundario:hover {
+  border-color: var(--dourado);
+  color: var(--dourado);
+}
+
+/* ============================================================
+   Faixa de dados (abaixo do hero)
+   ============================================================ */
+
+/* trinca de destaques sob o hero (+4 anos / venda e reparo / eletrônica) */
+.hero-dados {
+  display: flex;
+  gap: 48px;
+  margin-top: 64px;
+  flex-wrap: wrap;
+}
+
+.hero-dados div {
+  border-left: 2px solid var(--dourado);
+  padding-left: 16px;
+}
+
+.hero-dados strong {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--claro);
+}
+
+.hero-dados span {
+  color: var(--cinza);
+  font-size: 0.92rem;
+}
+
+/* ============================================================
+   Seções — estrutura comum
+   ============================================================ */
+
+/* as seções internas escurecem a foto fixa um pouco mais que o hero,
+   para dar prioridade à leitura */
+section { padding: 92px 0; border-bottom: 1px solid var(--linha); background: rgba(0, 0, 0, 0.62); }
+
+.secao-titulo {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--dourado);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.secao-titulo::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: var(--dourado);
+}
+
+section h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  max-width: 24ch;
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   Serviços
+   ============================================================ */
+
+.servicos-lista {
+  margin-top: 48px;
+  border-top: 1px solid var(--linha);
+}
+
+/* cada serviço é uma linha de 3 colunas: ícone | nome | descrição */
+.servico {
+  display: grid;
+  grid-template-columns: 56px 220px 1fr;
+  gap: 28px;
+  align-items: start;
+  padding: 34px 0;
+  border-bottom: 1px solid var(--linha);
+  transition: background 0.15s ease;
+}
+
+.servico:hover { background: rgba(242, 183, 5, 0.03); }
+
+.servico-icone {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--dourado-escuro);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dourado);
+}
+
+.servico-icone svg { width: 22px; height: 22px; }
+
+.servico h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--claro);
+  padding-top: 8px;
+}
+
+.servico p {
+  color: var(--cinza);
+  max-width: 60ch;
+  padding-top: 8px;
+}
+
+@media (max-width: 720px) {
+  .servico {
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+  }
+  .servico p {
+    grid-column: 2;
+    padding-top: 0;
+  }
+}
+
+/* ============================================================
+   Inova Cast
+   ============================================================ */
+
+.cast {
+  /* estúdio: microfone condensador dourado (img/podcast.jpg),
+     mais aberto à direita, onde fica o quadro de temas */
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.93) 0%, rgba(0, 0, 0, 0.84) 50%, rgba(0, 0, 0, 0.62) 100%),
+    url("../img/podcast.jpg") center / cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 820px) {
+  .cast {
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.88)),
+      url("../img/podcast.jpg") center / cover no-repeat;
+  }
+}
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 64px;
+  align-items: start;
+  position: relative;
+}
+
+.cast-grid > div:first-child p { color: var(--cinza); max-width: 58ch; }
+.cast-grid > div:first-child p + p { margin-top: 18px; }
+
+/* barras de áudio estáticas — assinatura visual do podcast */
+.cast-ondas {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 46px;
+  margin-bottom: 28px;
+}
+
+.cast-ondas span {
+  width: 5px;
+  background: var(--dourado);
+  border-radius: 2px;
+}
+
+.cast-ondas span:nth-child(1)  { height: 30%; opacity: 0.55; }
+.cast-ondas span:nth-child(2)  { height: 55%; opacity: 0.7; }
+.cast-ondas span:nth-child(3)  { height: 90%; }
+.cast-ondas span:nth-child(4)  { height: 65%; opacity: 0.8; }
+.cast-ondas span:nth-child(5)  { height: 100%; }
+.cast-ondas span:nth-child(6)  { height: 45%; opacity: 0.7; }
+.cast-ondas span:nth-child(7)  { height: 75%; opacity: 0.9; }
+.cast-ondas span:nth-child(8)  { height: 35%; opacity: 0.6; }
+.cast-ondas span:nth-child(9)  { height: 60%; opacity: 0.8; }
+.cast-ondas span:nth-child(10) { height: 25%; opacity: 0.5; }
+
+.cast-temas {
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--preto);
+}
+
+.cast-temas-cabecalho {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--preto);
+  background: var(--dourado);
+  padding: 12px 20px;
+  font-weight: 600;
+}
+
+.cast-temas ul { list-style: none; }
+
+.cast-temas li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 20px;
+  border-top: 1px solid var(--linha);
+  color: var(--claro);
+  font-size: 0.98rem;
+}
+
+.cast-temas li:first-child { border-top: none; }
+
+.cast-temas li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  background: var(--dourado);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cast-rodape {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--dourado);
+  padding: 13px 20px;
+  border-top: 1px solid var(--linha);
+}
+
+@media (max-width: 820px) {
+  .cast-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================================
+   Localização e contato
+   ============================================================ */
+
+.local-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.local-bloco { margin-top: 32px; }
+
+.local-bloco h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--dourado);
+  margin-bottom: 8px;
+}
+
+.local-bloco p { color: var(--claro); }
+.local-bloco p .mono { color: var(--cinza); font-size: 0.95rem; }
+
+.mapa {
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.mapa iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  /* "modo escuro" do Google Maps feito só com filtro CSS:
+     tira a cor, inverte o claro/escuro e suaviza o contraste */
+  filter: grayscale(1) invert(0.92) contrast(0.9);
+}
+
+@media (max-width: 820px) {
+  .local-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================================
+   Rodapé
+   ============================================================ */
+
+footer { padding: 44px 0 52px; background: rgba(0, 0, 0, 0.62); }
+
+.rodape-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+footer small {
+  color: var(--cinza);
+  font-size: 0.88rem;
+}
+
+footer .mono {
+  font-size: 0.85rem;
+  color: var(--dourado-escuro);
+}
